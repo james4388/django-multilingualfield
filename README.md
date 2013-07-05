@@ -20,6 +20,7 @@ To use, just install the package, and then use the field::
         html = MLHTMLField()
         
 Then use it like normal text field
+
     >>>from django.utils import translation
     >>>translation.active('en')
     
