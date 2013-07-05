@@ -1,0 +1,38 @@
+2013-07-06 01:15:04,394 [WARNING] django.request: Not Found: /
+2013-07-06 01:15:04,516 [WARNING] django.request: Not Found: /favicon.ico
+2013-07-06 01:15:10,028 [WARNING] django.request: Not Found: /admin/
+2013-07-06 01:16:18,223 [ERROR] django.request: Internal Server Error: /admin/testproject/mltext/1/
+Traceback (most recent call last):
+  File "C:\Python27\lib\site-packages\django\core\handlers\base.py", line 115, in get_response
+    response = callback(request, *callback_args, **callback_kwargs)
+  File "C:\Python27\lib\site-packages\django\contrib\admin\options.py", line 372, in wrapper
+    return self.admin_site.admin_view(view)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\utils\decorators.py", line 91, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\views\decorators\cache.py", line 89, in _wrapped_view_func
+    response = view_func(request, *args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\contrib\admin\sites.py", line 202, in inner
+    return view(request, *args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\utils\decorators.py", line 25, in _wrapper
+    return bound_func(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\utils\decorators.py", line 91, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\utils\decorators.py", line 21, in bound_func
+    return func(self, *args2, **kwargs2)
+  File "C:\Python27\lib\site-packages\django\db\transaction.py", line 223, in inner
+    return func(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\contrib\admin\options.py", line 1081, in change_view
+    ModelForm = self.get_form(request, obj)
+  File "C:\Python27\lib\site-packages\django\contrib\admin\options.py", line 465, in get_form
+    return modelform_factory(self.model, **defaults)
+  File "C:\Python27\lib\site-packages\django\forms\models.py", line 424, in modelform_factory
+    return type(form)(class_name, (form,), form_class_attrs)
+  File "C:\Python27\lib\site-packages\django\forms\models.py", line 212, in __new__
+    opts.exclude, opts.widgets, formfield_callback)
+  File "C:\Python27\lib\site-packages\django\forms\models.py", line 170, in fields_for_model
+    formfield = formfield_callback(f, **kwargs)
+  File "C:\Python27\lib\site-packages\django\contrib\admin\options.py", line 140, in formfield_for_dbfield
+    return db_field.formfield(**kwargs)
+  File "D:\Projects\Django\research\field\django-multilingualfield\testproject\..\multilingualfield\fields.py", line 124, in formfield
+    return super(MultilingualTextField, self).formfield(**defaults)
+NameError: global name 'MultilingualTextField' is not defined
