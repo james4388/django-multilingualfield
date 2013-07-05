@@ -1,0 +1,6 @@
+recursive-include multilingualfield *.py
+include multilingualfield/VERSION
+include README.rst
+include tests.py
+include LICENSE
+recursive-exclude multilingualfield *.pyc
