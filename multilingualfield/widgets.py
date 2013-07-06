@@ -1,4 +1,5 @@
 from django.forms import Textarea
+from django import forms
 from django.utils import simplejson as json
 from django.conf import settings
 from django.template import loader, Context
@@ -10,10 +11,20 @@ from django.utils import six
 from .language import LanguageText
 
 class MLTextWidget(Textarea):
-
+    HTML = False
+    
     def __init__(self, HTML=False, *args, **kwargs):
-        super(MLTextWidget, self).__init__(*args, **kwargs)
         self.HTML = HTML
+        super(MLTextWidget, self).__init__(*args, **kwargs)
+      
+    @property
+    def media(self):
+        js = ['multiligualfield/js/jquery-1.10.2.min.js','multiligualfield/js/jquery-ui-1.10.3.custom.min.js',
+        'multiligualfield/js/json.js']
+        if self.HTML:
+            js += ['multiligualfield/ckeditor/ckeditor.js']
+        css = ['multiligualfield/css/ui-darkness/jquery-ui-1.10.3.custom.min.css']
+        return forms.Media(js=js,css={'all':css})
         
     def render(self, name, value, attrs=None):
         is_valid = False

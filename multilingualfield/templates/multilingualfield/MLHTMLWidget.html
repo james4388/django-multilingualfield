@@ -1,0 +1,57 @@
+
+<br/><br/>
+<div>
+    <div id="language_widget_{{name}}">
+        <ul>
+            {% for l in langsobj %}
+                <li><a href="#tabs-{{forloop.counter}}" data-lang="{{l.0}}">{{l.1}}</a></li>
+            {% endfor %}
+        </ul>
+        {% for l in langsobj %}
+        <div id="tabs-{{forloop.counter}}" data-lang="{{l.0}}">
+            <textarea id="language_widget_{{name}}_html_{{l.0}}" class="language_html ck_{{name}}" rows="4" cols="20" style="width:100%" data-lang="{{l.0}}"></textarea>
+        </div>
+        {% endfor %}
+    </div>
+    <textarea id="id_{{name}}" name="{{name}}" style="display:none"></textarea>
+</div>
+
+<script>
+    $(function(){
+        var ml_{{name}}_data = {{ml_json|safe}};
+        var ml_{{name}}_language = {{ml_language|safe}};
+        var ml_all_langs = {{langs|safe}};
+        
+        $( "#language_widget_{{name}}" ).tabs();
+        
+        for(i in ml_{{name}}_language){
+            var l = ml_{{name}}_language[i];
+            if(l in ml_all_langs){
+                $('#language_widget_{{name}} textarea[data-lang="'+l+'"]').val(ml_{{name}}_data[l]);
+            }
+        }
+        
+        $('#language_widget_{{name}} textarea.language_html').change(function(){
+            var submit = {};
+            $('#language_widget_{{name}} textarea.language_html').each(function(){
+                if($(this).val() != ""){
+                    submit[$(this).data('lang')] = $(this).val();
+                }
+            });
+            $('#id_{{name}}').val(JSON.stringify(submit));
+        });
+        $('#id_{{name}}').val(JSON.stringify(ml_{{name}}_data));
+        
+        for (l in ml_all_langs){
+            CKEDITOR.replace('language_widget_{{name}}_html_' + l,{
+                
+            });
+            CKEDITOR.instances['language_widget_{{name}}_html_' + l].on('blur', function(e){
+                if(this.checkDirty()){
+                    if(this.name)
+                        $('#'+this.name).val(this.getData()).change();
+                }
+            });
+        }
+    });
+</script>

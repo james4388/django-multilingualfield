@@ -130,7 +130,7 @@ class MLHTMLField(MLTextField):
     def formfield(self, **kwargs):
         defaults = {
             'form_class': MLTextFormField,
-            'widget': MLHTMLWidget(HTML=True)
+            'widget': MLTextWidget(HTML=True)
         }
         defaults.update(**kwargs)
         return super(MLHTMLField, self).formfield(**defaults)

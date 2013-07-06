@@ -1,5 +1,5 @@
 from django.db import models
-from multilingualfield.fields import MLTextField
+from multilingualfield.fields import MLTextField, MLHTMLField
 
 class MLText(models.Model):
     text = MLTextField()
@@ -9,7 +9,7 @@ class MLText(models.Model):
         
 class MLTextMultiple(models.Model):
     text1 = MLTextField()
-    text2 = MLTextField()
+    text2 = MLHTMLField()
     text3 = MLTextField()
     
     
