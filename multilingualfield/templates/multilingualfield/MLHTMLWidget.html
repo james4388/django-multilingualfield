@@ -4,11 +4,11 @@
     <div id="language_widget_{{name}}">
         <ul>
             {% for l in langsobj %}
-                <li><a href="#tabs-{{forloop.counter}}" data-lang="{{l.0}}">{{l.1}}</a></li>
+                <li><a href="#tabs-{{name}}-{{l.0}}" data-lang="{{l.0}}">{{l.1}}</a></li>
             {% endfor %}
         </ul>
         {% for l in langsobj %}
-        <div id="tabs-{{forloop.counter}}" data-lang="{{l.0}}">
+        <div id="tabs-{{name}}-{{l.0}}" data-lang="{{l.0}}">
             <textarea id="language_widget_{{name}}_html_{{l.0}}" class="language_html ck_{{name}}" rows="4" cols="20" style="width:100%" data-lang="{{l.0}}"></textarea>
         </div>
         {% endfor %}
@@ -23,6 +23,8 @@
         var ml_all_langs = {{langs|safe}};
         
         $( "#language_widget_{{name}}" ).tabs();
+        var act_lang = $('#language_widget_{{name}} a[href="#tabs-{{name}}-{{current_language}}"]').parent().index();
+        $('#language_widget_{{name}}').tabs("option", "active", act_lang);
         
         for(i in ml_{{name}}_language){
             var l = ml_{{name}}_language[i];
@@ -44,7 +46,9 @@
         
         for (l in ml_all_langs){
             CKEDITOR.replace('language_widget_{{name}}_html_' + l,{
-                
+                {% if CKEDITOR_FILER %}
+                filebrowserBrowseUrl: '{{CKEDITOR_BROWSER_URL}}'
+                {% endif %}
             });
             CKEDITOR.instances['language_widget_{{name}}_html_' + l].on('blur', function(e){
                 if(this.checkDirty()){

@@ -20,6 +20,7 @@ To use, just install the package, and then use the field::
         html = MLHTMLField()
         
 Then use it like normal text field
+
     >>>from django.utils import translation
     >>>translation.active('en')
     
@@ -43,6 +44,14 @@ database.  When you instantiate/fetch the object, it will be turned back
 into a python LanguageText object.
 
 There is also a form and widget that automatic create language tab when you edit a field in admin. CKEditor may be add for html field.
+
+CKEDITOR and FILER
+----
+Also support CKEDITOR and FILER file explorer
+
+Settings:
+    
+    CKEDITOR_FILERBROWSER = True
 
 Notes
 ~~~~~

@@ -45,6 +45,14 @@ into a python LanguageText object.
 
 There is also a form and widget that automatic create language tab when you edit a field in admin. CKEditor may be add for html field.
 
+CKEDITOR and FILER
+----
+Also support CKEDITOR and FILER file explorer
+
+Settings:
+    
+    CKEDITOR_FILERBROWSER = True
+
 Notes
 ~~~~~
 Please help me test this approach, is it good/bad approach?

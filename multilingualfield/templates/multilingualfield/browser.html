@@ -1,0 +1,43 @@
+<html>
+    <head>
+        <title>File manager</title>
+        <script src="{{STATIC_URL}}multiligualfield/js/jquery-1.10.2.min.js"></script>
+        <script>
+            if(!window.opener || (window.opener && !window.opener.CKEDITOR)){
+                window.location.href = "/";
+            }
+        </script>
+    </head>
+    <body>
+        <iframe id="filerbrowser" src="{{CKEDITOR_FILER_FILEBROWSER_URL}}" frameBorder="0" width="95%" height="95%"></iframe>
+        <script>
+            if (!String.prototype.format) {
+              String.prototype.format = function() {
+                var args = arguments;
+                return this.replace(/{(\d+)}/g, function(match, number) { 
+                  return typeof args[number] != 'undefined'
+                    ? args[number]
+                    : match
+                  ;
+                });
+              };
+            }
+            function dismissRelatedImageLookupPopup (win, chosenId, chosenThumbnailUrl, chosenDescriptionTxt) {
+                $.get('{{CKEDITOR_FILER_FILEBROWSER_GET}}'.format(chosenId),function(data){
+                    var url = $('#file_form .file-upload a',data).attr('href');
+                    if(url){
+                        if(window.opener && window.opener.CKEDITOR){
+                            window.opener.CKEDITOR.tools.callFunction( {{CKEditorFuncNum|safe}}, url);
+                            window.close();
+                        }else{
+                            
+                        }
+                    }
+                });
+            }
+            setInterval(function(){
+                document.getElementById('filerbrowser').contentWindow.opener = window;
+            },1000);
+        </script>
+    </body>
+</html>

@@ -10,6 +10,6 @@ class MLText(models.Model):
 class MLTextMultiple(models.Model):
     text1 = MLTextField()
     text2 = MLHTMLField()
-    text3 = MLTextField()
+    text3 = MLHTMLField()
     
     

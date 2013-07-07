@@ -203,7 +203,12 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'multilingualfield',
     'testproject',
+    'filer',
+    'easy_thumbnails',
 )
+
+#CKEDITOR settings
+CKEDITOR_FILERBROWSER = True
 
 LANGUAGES = (
     ('en','English'),

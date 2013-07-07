@@ -5,16 +5,22 @@ from django.conf import settings
 from django.template import loader, Context
 from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
-from django.utils import six
-
+from django.utils import six, translation
+from django.core.exceptions import ImproperlyConfigured
+from multilingualfield import settings as ml_settings
 
 from .language import LanguageText
+
+DEFAULT_CKCONFIG = {
+
+}
 
 class MLTextWidget(Textarea):
     HTML = False
     
     def __init__(self, HTML=False, *args, **kwargs):
         self.HTML = HTML
+        
         super(MLTextWidget, self).__init__(*args, **kwargs)
       
     @property
@@ -36,10 +42,10 @@ class MLTextWidget(Textarea):
             ml_json = json.dumps(value.values)
             ml_language = json.dumps(value.get_available_language())
             is_valid = True
-        if isinstance(value, six.string_types):
+        if isinstance(value, six.string_types): #Debug :(
             print "Why string here ==================="
             print value
-            print "========================="
+            print "===============================Why?"
         if is_valid :
             Langs = json.dumps(dict(settings.LANGUAGES))
             if self.HTML:
@@ -52,6 +58,9 @@ class MLTextWidget(Textarea):
                 "ml_json":ml_json,
                 "ml_language":ml_language,
                 "langs":Langs,
-                "langsobj":settings.LANGUAGES
+                "langsobj":settings.LANGUAGES,
+                'current_language': translation.get_language(),
+                'CKEDITOR_FILER' : ml_settings.CKEDITOR_FILER,
+                'CKEDITOR_BROWSER_URL': ml_settings.CKEDITOR_BROWSER_URL
             }))
         return "Invalid data '%s'" % value
